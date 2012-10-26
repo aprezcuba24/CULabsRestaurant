@@ -1,0 +1,34 @@
+{% extends 'CorePlatoBundle:Default:showSimple.html.twig' %}
+
+{% block content %}
+<div class="show_plato">
+    <a class="regresar_menu" href="{{ path('menu_show', {'slug':menu.slug}) }}">{{ 'Regresar al menu'|trans }}</a>
+    {{ parent() }}
+    <h3>{{ 'Otros platos del menú'|trans }}: {{ menu }}</h3>
+    <ul class="thumbnails">
+        {% for plato in menu.platos %}
+            {% if plato.id != entity.id %}
+            <li class="plato_item span2">
+                <div class="thumbnail">
+                    <a href="#">
+                        <a href="{{ path('plato_show', {
+                            'plato_slug': plato.slug,
+                            'menu_slug':  menu.slug,
+                        }) }}">
+                            <img src="{{ vich_uploader_asset(plato, 'foto_file') | apply_filter('list_miniatura_front') }}" alt="{{ plato.name }}" />
+                        </a>
+                    </a>
+                    <div class="caption">
+                        <h5>{{ plato }}</h5>
+                        <p><a href="{{ path('plato_show', {
+                            'plato_slug': plato.slug,
+                            'menu_slug':  menu.slug,
+                        }) }}">{{ 'Ver plato'|trans }}</a></p>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

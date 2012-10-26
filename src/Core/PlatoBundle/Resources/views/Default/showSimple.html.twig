@@ -1,0 +1,34 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/coreplato/css/plato.css') }}" type="text/css" media="screen" title="default" />
+{% endblock %}
+
+{% block content %}
+<div class="show_plato">    
+    <h1>{{ entity }}</h1>
+    <div class="imagen_descripcion">
+        <div class="imagen thumbnails">
+            <div class="thumbnail">
+                <img src="{{ vich_uploader_asset(entity, 'foto_file') | apply_filter('show_front') }}" alt="{{ entity.name }}" />
+            </div>
+            {% include '::redes_sociales.html.twig' with{
+                'url':  url('plato_show_simple', {'slug':entity.slug}),
+                'text': entity ~ ':' ~ entity.resumen,
+            } %}
+            <p>{{ entity.descripcion }}</p>
+        </div>
+    </div>
+    <h3>{{ 'Datos nutricionales'|trans }}</h3>
+    <p>{{ entity.datosNutricionales }}</p>
+    <h3>{{ 'Forma de elaboración'|trans }}</h3>
+    <p>{{ entity.formaElaboracion }}</p>
+    <h3>{{ 'Ingredientes'|trans }}</h3>
+    <ul>
+        {% for plato_ingrediente in entity.platoIngredientes %}
+        <li>{{ plato_ingrediente.ingrediente }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'CULabsAdminBundle:Crud:list.html.twig' %}
+
+{% block route_batch %}{{ path('admin_plato_batch') }}{% endblock %}
+
+{% block header_table %}
+{% import 'CULabsAdminBundle:Crud:macros.html.twig' as macros %}
+<tr>
+    <th class="checkall batch"><input type="checkbox" onchange="admin_list_checkall(this, '#Plato_list .check input')"/></th>
+    <th style="width: 120px">{{ 'Foto'|trans }}</th>    
+    <th>{{ macros.sort_field('Name'|trans, 'name', sort, 'ajax_Plato', 'admin_plato_sort', 'indicator_table_Plato') }}</th> 
+    <th>{{ macros.sort_field('Destacado'|trans, 'destacado', sort, 'ajax_Plato', 'admin_plato_sort', 'indicator_table_Plato') }}</th> 
+    <th>{{ 'Options'|trans }}</th>
+</tr>
+{% endblock %}
+
+{% block body_table %}
+    {% for entity in pager %}
+    <tr id="row_{{ loop.index }}" onclick="admin_list_checkrow('#' + this.id + ' .check input')">
+        <td class="check"><input type="checkbox" value="{{ entity.id }}" name="ids[]"/></td>
+        <td>
+            <a href="{{ path('admin_plato_show', { 'id': entity.id }) }}">
+                <img src="{{ vich_uploader_asset(entity, 'foto_file') | apply_filter('list_admin') }}" alt="{{ entity.name }}" />
+            </a>            
+        </td>
+        <td><a href="{{ path('admin_plato_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
+        <td>
+            {% if entity.destacado %}
+                {{ 'Si'|trans }}
+            {% else %}
+                {{ 'No'|trans }}
+            {% endif %}
+        </td>
+        <td class="opcions span4">
+            <ul>                  
+                <li>
+                    {% if is_granted('ROLE_PLATO_SHOW') %}
+                    <a class="btn btn-icon btn-info btn-small" href="{{ path('admin_plato_show', { 'id': entity.id }) }}">
+                        <i class="icon-eye-open"></i>{{ 'show'|trans }}
+                    </a>
+                    {% endif %}
+                </li>                  
+                <li>
+                    {% if is_granted('ROLE_PLATO_EDIT') %}
+                    <a class="btn btn-icon btn-info btn-small" href="{{ path('admin_plato_edit', { 'id': entity.id }) }}">
+                        <i class="icon-pencil"></i>{{ 'edit'|trans }}
+                    </a>
+                    {% endif %}
+                </li>                  
+                <li>
+                    {% if is_granted('ROLE_PLATO_DELETE') %}
+                    <a class="btn btn-icon btn-danger btn-small" href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_plato_delete', { 'id': entity.id }) }}')">
+                        <i class="icon-remove"></i>{{ 'delete'|trans }}
+                    </a>                                      
+                    {% endif %}                    
+                </li>                
+            </ul>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+ 
+{% block footer_table %}
+    <div class="batch">
+        {% if is_granted('ROLE_PLATO_DELETE') %}
+        <select name="batch_action" class="batch_actions">
+            <option value="">{{'Select a action'|trans}}</option>
+            <option value="delete">{{'Delete'|trans}}</option>
+        </select>
+        <input type="submit" class="btn btn-primary" value="{{'Ok'|trans}}"/>
+        {% endif %}
+        <div class="loader">
+            <img style="display: none" id="indicator_table_Plato" src="{{ asset('bundles/culabsadmin/images/loader.gif') }}"/>
+        </div>
+    </div>
+    {% include 'CULabsAdminBundle:Crud:pager.html.twig' with { 
+        'pager':                pager,
+        'zona':                 'ajax_Plato',
+        'url':                  path('admin_plato'),
+        'url_changemaxperpage': path('admin_plato_changemaxperpage'),
+        'maxperpage_list':      [10,20,30,50, 100],
+    } %}
+{% endblock %}

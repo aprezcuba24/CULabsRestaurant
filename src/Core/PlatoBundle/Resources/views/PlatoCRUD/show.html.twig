@@ -1,0 +1,99 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'Detail Plato'|trans }}{% endblock %}
+
+{% block actions %}
+    <div class="table-header">
+        <ul class="actions">
+            <li>
+                <a href="{{ path('admin_plato') }}" class="btn btn-icon btn-info">     
+                    <i class="icon-list"></i>{{ 'List'|trans }}  
+                </a>
+            </li>
+            {% if is_granted('ROLE_PLATO_EDIT') %}
+            <li>
+                <a href="{{ path('admin_plato_edit', { 'id': entity.id }) }}" class="btn btn-icon btn-info">     
+                <i class="icon-pencil"></i>{{ 'Edit'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_PLATO_NEW') %}
+            <li>
+                <a href="{{ path('admin_plato_new') }}" class="btn btn-icon btn-info">     
+                <i class="icon-plus"></i>{{ 'New'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_PLATO_DELETE') %}
+            <li>
+                <a href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_plato_delete', { 'id': entity.id }) }}')" class="btn btn-icon btn-danger">     
+                <i class="icon-remove"></i>{{ 'Delete'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+    
+{% block view_body %}
+<table class="table table-bordered table-hover table-striped">        
+    <tr>
+        <th class="span2">{{ 'Name'|trans }}</th>
+        <td>
+            {{ entity.name }}
+        </td>
+    </tr>        
+    <tr>
+        <th class="span2">{{ 'Destacado'|trans }}</th>
+        <td>
+            {% if entity.destacado %}
+                {{ 'Si'|trans }}
+            {% else %}
+                {{ 'No'|trans }}
+            {% endif %}
+        </td>
+    </tr>        
+    <tr>
+        <th class="span2">{{ 'Forma_elaboracion'|trans }}</th>
+        <td>
+            {{ entity.formaelaboracion }}
+        </td>
+    </tr>        
+    <tr>
+        <th class="span2">{{ 'Datos_nutricionales'|trans }}</th>
+        <td>
+            {{ entity.datosnutricionales }}
+        </td>
+    </tr>        
+    <tr>
+        <th class="span2">{{ 'Descripción'|trans }}</th>
+        <td>
+            {{ entity.descripcion }}
+        </td>
+    </tr>        
+    <tr>
+        <th class="span2">{{ 'Resumen'|trans }}</th>
+        <td>
+            {{ entity.resumen }}
+        </td>
+    </tr>        
+    <tr>
+        <th class="span2">{{ 'Foto'|trans }}</th>
+        <td>
+            <img src="{{ vich_uploader_asset(entity, 'foto_file') }}" alt="{{ entity.name }}" />
+        </td>
+    </tr>
+    <tr>
+        <th class="span2">{{ 'Ingredientes'|trans }}</th>
+        <td>
+            <ul>
+                {% for ingrediente in ingredientes %}
+                <li>
+                    {{ ingrediente }}
+                </li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+</table>
+{% endblock %}

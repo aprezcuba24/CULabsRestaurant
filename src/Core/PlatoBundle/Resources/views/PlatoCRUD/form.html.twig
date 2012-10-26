@@ -1,0 +1,72 @@
+{% form_theme form 'CULabsAdminBundle:Form:fields.html.twig' %}
+<form id="form_new" action="#" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_row(form.name) }}
+    {{ form_row(form.destacado) }}
+    {{ form_row(form.forma_elaboracion) }}
+    {{ form_row(form.datos_nutricionales) }}
+    {{ form_row(form.resumen) }}
+    {{ form_row(form.descripcion) }}
+    {{ form_row(form.foto_file) }}
+       
+    <h3>{{ 'Ingredientes'|trans }}</h3>
+    <ul class="tags" data-prototype="{{ form_widget(form.plato_ingredientes.vars.prototype)|e }}">
+        {% for item in form.plato_ingredientes %}
+        <li>
+            {{ form_widget(item) }}
+        </li>
+        {% endfor %}
+    </ul>
+    <div style="clear: both"></div>
+    <a href="#" id="add_ingrediente" class="btn btn-info btn-icon">
+      <i class="icon-plus"></i>{{ 'Add Ingrediente'|trans }}
+    </a>
+        
+    <script type="text/javascript">
+        var collectionHolder = $('ul.tags');
+        
+        jQuery(document).ready(function() {
+            
+            $('#add_ingrediente').on('click', function(e) {
+                
+                e.preventDefault();
+                addTagForm(collectionHolder);
+            });
+        });
+        
+        jQuery(document).ready(function() {
+            collectionHolder.find('li').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+        });
+        
+        function addTagForm(collectionHolder) {
+            
+            var prototype = collectionHolder.attr('data-prototype');
+            
+            var newForm = prototype.replace(/\$\$name\$\$/g, collectionHolder.children().length);
+            
+            var $newFormLi = $('<li></li>').append(newForm);
+            
+            addTagFormDeleteLink($newFormLi);
+            
+            collectionHolder.append($newFormLi);
+        }
+        
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<a href="#" class="btn btn-danger btn-icon"><i class="icon-remove"></i>{{ 'delete'|trans }}</a>');
+            $tagFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                
+                e.preventDefault();
+                $tagFormLi.remove();
+            });
+        }
+    </script>
+    
+    {{ form_rest(form) }}
+    <div class="form-actions">
+        <input class="btn btn-primary" value="{{ 'Save'|trans }}" type="submit"/>
+        <a href="{{ path('admin_plato') }}" class="btn">{{ 'Cancel'|trans }}</a>
+    </div>
+</form>

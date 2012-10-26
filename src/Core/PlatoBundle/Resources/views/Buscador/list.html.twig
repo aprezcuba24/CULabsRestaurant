@@ -1,0 +1,49 @@
+<div style="min-height: 430px">
+    <ul class="platos_buscador_list">
+        {% for entity in pager %}
+        <li class="item">
+            <a href="{{ path('plato_show_simple', { 'slug': entity.slug }) }}">
+                <div>
+                    <img src="{{ vich_uploader_asset(entity, 'foto_file') | apply_filter('list_admin') }}" alt="{{ entity.name }}" />
+                    <span class="name">{{ entity }}</span>
+                    <p class="resumen">{{ entity.resumen }}</p>
+                    <div style="clear: both"></div>
+                </div>
+            </a> 
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% set pager_data = pager.paginationData %}
+<ul class="pager">
+    {% if pager_data.current != pager_data.first %}
+        <li class="previous">
+            <a href="#" onclick="{{ jq_remote_function({
+                'update':   'zona_list', 
+                'url':      path('buscador'),
+                'method':   'GET',
+                'with':     jq_sprintf("'page=%s&q=%s'", pager_data.previous, query),
+                'complete': "jQuery('#indicador_busqueda_pager').hide();",
+                'loading':  "jQuery('#indicador_busqueda_pager').show();",
+            }) }}">
+                &larr; {{ 'Anterior'|trans }}
+            </a>
+        </li>
+    {% endif %}
+    <img style="display: none;" src="{{ asset('bundles/culabsadmin/images/loader.gif') }}" id="indicador_busqueda_pager"/>
+    {% if pager_data.current != pager_data.pageCount and pager_data.pageCount != 0 %}
+    <li class="next">
+        <a href="#" onclick="{{ jq_remote_function({
+            'update':   'zona_list', 
+            'url':      path('buscador'),
+            'method':   'GET',
+            'with':     jq_sprintf("'page=%s&q=%s'", pager_data.next, query),
+            'complete': "jQuery('#indicador_busqueda_pager').hide();",
+            'loading':  "jQuery('#indicador_busqueda_pager').show();",
+        }) }}">
+            {{ 'Siguiente'|trans }} &rarr;
+        </a>        
+    </li>
+    {% endif %}
+</ul>

@@ -1,0 +1,17 @@
+ul.tags li {
+    list-style: none;
+    clear: both;
+}
+ul.tags li a {
+    float: left;
+}
+ul.tags li div label {
+    width: 50px;
+}
+ul.tags li div input {
+    width: 50px;
+}
+ul.tags li div.control-group {
+    float: left;
+    width: 320px;
+}

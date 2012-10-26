@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>{{ 'CULabs Restaurant'|trans }}</title>
+        <link>{{ url('homepage') }}</link>
+        <description>{{ 'rss_platos_descripcion'|trans({'%fecha%':fecha|date('d/m/Y')}) }}</description>
+        <language>es</language>
+        <pubDate>{{ fecha|date('r') }}</pubDate>
+        <lastBuildDate>{{ fecha|date('r') }}</lastBuildDate>
+        <generator>Symfony2</generator>
+        <atom:link rel="self" type="application/rss+xml" href="{{ url('rss_plato') }}" />
+    </channel>
+    {% for item in platos %}
+    <item>
+        <title>{{ item.name }}</title>
+        <link>{{ url('plato_show_simple', {'slug':item.slug}) }}</link>
+        <description><![CDATA[
+            <img alt="" src="{{ 'http://'~app.request.server.get('SERVER_NAME')~vich_uploader_asset(item, 'foto_file') | apply_filter('list_admin') }}"/>
+            {{ item.resumen }}
+        ]]></description>
+        <guid>{{ url('plato_show_simple', {'slug':item.slug}) }}</guid>
+    </item>
+    {% endfor %}
+</rss>

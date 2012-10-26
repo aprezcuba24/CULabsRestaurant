@@ -1,0 +1,19 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'New Ingrediente'|trans }}{% endblock %}
+
+{% block actions %}
+    <ul class="actions">
+        <li>
+            <a href="{{ path('admin_ingrediente') }}" class="btn btn-icon btn-info">     
+              <i class="icon-list"></i>{{ 'List'|trans }} 
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+    
+{% block view_body %}
+    {% include 'CorePlatoBundle:IngredienteCRUD:form.html.twig' with { 
+        'form': form,
+    } %}
+{% endblock %}

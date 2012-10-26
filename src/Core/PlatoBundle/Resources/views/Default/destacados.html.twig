@@ -1,0 +1,10 @@
+<h3>{{ 'Platos destacados'|trans }}</h3>
+<ul class="platos_destacados">
+    {% for item in destacados %}
+    <li class="item">
+        <a href="{{ path('plato_show_simple', {'slug':item.slug}) }}">
+            <img src="{{ vich_uploader_asset(item, 'foto_file') | apply_filter('destacado_front') }}" alt="{{ item.name }}" />
+        </a>
+    </li>
+    {% endfor %}
+</ul>

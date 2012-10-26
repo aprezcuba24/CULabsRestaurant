@@ -1,0 +1,40 @@
+{% extends 'CULabsAdminBundle:Crud:index.html.twig' %}
+
+{% block title_page %}{{ 'CatIngrediente list'|trans}}{% endblock %}
+
+{% block list_id %}CatIngrediente_list{% endblock %}
+
+{% block filter_form %}
+<form action="{{ path('admin_ingrediente_categoria_filter') }}" method="post">
+    <div class="form">
+        <div>
+            {% form_theme filter 'CULabsAdminBundle:Form:fields.html.twig' %}
+            {{  form_rest(filter) }}
+            <div style="clear: both"></div>
+        </div>
+        <input class="btn btn-primary" type="submit" name="action_filter" value="{{ 'Filter'|trans }}"/>
+        <input class="btn" type="submit" name="action_reset" value="{{ 'Reset'|trans }}" />
+    </div>
+</form>
+{% endblock %}
+
+{% block actions %}
+    <ul class="actions">
+        {% if is_granted('ROLE_CATINGREDIENTE_NEW') %}
+        <li>
+            <a href="{{ path('admin_ingrediente_categoria_new') }}" class="btn btn-icon btn-primary">     
+              <i class="icon-plus"></i>{{ 'New'|trans }}  
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block list %}
+<div id="ajax_CatIngrediente">
+    {% include 'CorePlatoBundle:CatIngredienteCRUD:list.html.twig' with { 
+        'pager': pager,
+        'sort' : sort,
+    } %}
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'Detail CatIngrediente'|trans }}{% endblock %}
+
+{% block actions %}
+    <div class="table-header">
+        <ul class="actions">
+            <li>
+                <a href="{{ path('admin_ingrediente_categoria') }}" class="btn btn-icon btn-info">     
+                    <i class="icon-list"></i>{{ 'List'|trans }}  
+                </a>
+            </li>
+            {% if is_granted('ROLE_CATINGREDIENTE_EDIT') %}
+            <li>
+                <a href="{{ path('admin_ingrediente_categoria_edit', { 'id': entity.id }) }}" class="btn btn-icon btn-info">     
+                <i class="icon-pencil"></i>{{ 'Edit'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_CATINGREDIENTE_NEW') %}
+            <li>
+                <a href="{{ path('admin_ingrediente_categoria_new') }}" class="btn btn-icon btn-info">     
+                <i class="icon-plus"></i>{{ 'New'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_CATINGREDIENTE_DELETE') %}
+            <li>
+                <a href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_ingrediente_categoria_delete', { 'id': entity.id }) }}')" class="btn btn-icon btn-danger">     
+                <i class="icon-remove"></i>{{ 'Delete'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+    
+{% block view_body %}
+<table class="table table-bordered table-hover table-striped">  
+    <tr>
+        <th class="span2">{{ 'Name'|trans }}</th>
+        <td>
+            {{ entity.name }}
+        </td>
+    </tr></table>
+{% endblock %}

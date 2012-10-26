@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Categoria Ingredientes -->
+            <trans-unit id="CatIngrediente list">
+                <source>CatIngrediente list</source>
+                <target>Mantenimiento Categorías de Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="New CatIngrediente">
+                <source>New CatIngrediente</source>
+                <target>Nueva Categoría de Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="Detail CatIngrediente">
+                <source>Detail CatIngrediente</source>
+                <target>Detalle Categoría de Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="Edit CatIngrediente">
+                <source>Edit CatIngrediente</source>
+                <target>Editar Categoría de Ingrediente</target>
+            </trans-unit>
+            
+            <!-- Ingredientes -->
+            <trans-unit id="Ingrediente list">
+                <source>Ingrediente list</source>
+                <target>Mantenimiento de Ingredientes</target>
+            </trans-unit>
+            <trans-unit id="New Ingrediente">
+                <source>New Ingrediente</source>
+                <target>Nuevo Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="Detail Ingrediente">
+                <source>Detail Ingrediente</source>
+                <target>Detalle Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="Edit Ingrediente">
+                <source>Edit Ingrediente</source>
+                <target>Editar Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="Peso_unitario">
+                <source>Peso_unitario</source>
+                <target>Peso unitario</target>
+            </trans-unit>
+            <!--Plato-->
+            <trans-unit id="Plato list">
+                <source>Plato list</source>
+                <target>Mantenimiento Platos</target>
+            </trans-unit>
+            <trans-unit id="New Plato">
+                <source>New Plato</source>
+                <target>Nuevo Plato</target>
+            </trans-unit>
+            <trans-unit id="Edit Plato">
+                <source>Edit Plato</source>
+                <target>Editar Plato</target>
+            </trans-unit>
+            <trans-unit id="Detail Plato">
+                <source>Detail Plato</source>
+                <target>Detalle Plato</target>
+            </trans-unit>
+            <trans-unit id="Forma elaboracion">
+                <source>Forma elaboracion</source>
+                <target>Forma elaboración</target>
+            </trans-unit>
+            <trans-unit id="Forma_elaboracion">
+                <source>Forma_elaboracion</source>
+                <target>Forma elaboración</target>
+            </trans-unit>
+            <trans-unit id="Datos_nutricionales">
+                <source>Datos_nutricionales</source>
+                <target>Forma elaboración</target>
+            </trans-unit>
+            
+            <!-- RSS -->
+            <trans-unit id="ss_platos_descripcion">
+                <source>rss_platos_descripcion</source>
+                <target>Ofertas de platos ofertados en la fecha "%fecha%"</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
