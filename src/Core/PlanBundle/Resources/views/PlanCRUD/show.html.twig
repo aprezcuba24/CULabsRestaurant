@@ -1,0 +1,106 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'Detail Plan'|trans }}{% endblock %}
+
+{% block actions %}
+    <div class="table-header">
+        <ul class="actions">
+            <li>
+                <a href="{{ path('admin_plan') }}" class="btn btn-icon btn-info">     
+                    <i class="icon-list"></i>{{ 'List'|trans }}  
+                </a>
+            </li>
+            {% if is_granted('ROLE_PLAN_EDIT') %}
+            <li>
+                <a href="{{ path('admin_plan_edit', { 'id': entity.id }) }}" class="btn btn-icon btn-info">     
+                <i class="icon-pencil"></i>{{ 'Edit'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_PLAN_LIST_COMPRA') %}
+            <li>
+                <a class="btn btn-icon btn-info" href="{{ path('admin_plan_list_compra', { 'id': entity.id }) }}">
+                    <i class="icon-filter"></i>{{ 'Lista compra'|trans }}
+                </a>                                      
+            </li> 
+            {% endif %}                    
+            {% if is_granted('ROLE_PLAN_NEW') %}
+            <li>
+                <a href="{{ path('admin_plan_new') }}" class="btn btn-icon btn-info">     
+                <i class="icon-plus"></i>{{ 'New'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_PLAN_DELETE') %}
+            <li>
+                <a href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_plan_delete', { 'id': entity.id }) }}')" class="btn btn-icon btn-danger">     
+                <i class="icon-remove"></i>{{ 'Delete'|trans }}  
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+    
+{% block view_body %}
+<table class="table table-bordered table-hover table-striped"> 
+    <tr>
+        <th class="span2">{{ 'Fecha'|trans }}</th>
+        <td>
+            {{ entity.fecha|date('Y-m-d') }}
+        </td>
+    </tr>
+    <tr>
+        <th class="span2">{{ 'Cantidad raciones'|trans }}</th>
+        <td>
+            {{ entity.cantidadRaciones }}
+        </td>
+    </tr>
+</table>
+<h2>{{ 'Menus registrados para el día'|trans }}</h2>
+
+{% if is_granted('ROLE_PLAN_ADD_PLANMOMENTO') %}
+<div class="table-header">
+    <ul class="actions">
+        {% for item in momentos %}
+            <li>
+                <a href="{{ path('admin_add_plan_momento', { 
+                    'id_plan':    entity.id,
+                    'id_momento': item.id
+                }) }}" class="btn btn-icon btn-info">     
+                <i class="icon-plus"></i>{{ item }}  
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div style="clear: both"></div>
+</div>
+{% endif %}
+
+{% for item in menus %}
+<h3>{{ item.momento }}</h3>
+<table class="table table-bordered table-hover table-striped">
+    {% for menu in item.menus %}
+    <tr>
+        <td style="width: 120px">
+            <a href="{{ path('admin_menu_show', { 'id': menu.id }) }}">
+                <img src="{{ vich_uploader_asset(menu, 'foto_file') | apply_filter('list_admin') }}" alt="{{ menu.name }}" />
+            </a>
+        </td>
+        <td>{{ menu }}</td>
+        <td class="opcions span2">
+            {% if is_granted('ROLE_PLAN_DELETE_PLANMOMENTO') %}
+            <a class="btn btn-icon btn-danger btn-small" href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_delete_plan_momento', { 
+                'id_plan_momento': item.id,
+                'id_menu':         menu.id,
+            }) }}')">
+                <i class="icon-remove"></i>{{ 'delete'|trans }}
+            </a>                                      
+            {% endif %}  
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+
+{% endblock view_body %}

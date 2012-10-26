@@ -1,0 +1,42 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>{{ entity }}</h1>
+    <div class="imagen_descripcion">
+        <div class="imagen thumbnails">
+            <div class="thumbnail">
+                <img src="{{ vich_uploader_asset(entity, 'foto_file') | apply_filter('show_menor_front') }}" alt="{{ entity.name }}" />
+            </div>
+            {% include '::redes_sociales.html.twig' with{
+                'url':  url('menu_show', {'slug':entity.slug}),
+                'text': entity ~ ':' ~ entity.resumen,
+            } %}
+            <p>{{ entity.descripcion }}</p>
+        </div>
+    </div>
+    <h3>{{ 'Platos'|trans }}</h3>
+    <ul class="thumbnails">
+        {% for plato in entity.platos %}
+            <li class="plato_item span4">
+                <div class="thumbnail">
+                    <a href="#">
+                        <a href="{{ path('plato_show', {
+                            'plato_slug': plato.slug,
+                            'menu_slug':  entity.slug,
+                        }) }}">
+                            <img src="{{ vich_uploader_asset(plato, 'foto_file') | apply_filter('list_front') }}" alt="{{ plato.name }}" />
+                        </a>
+                    </a>
+                    <div class="caption">
+                        <h3>{{ plato }}</h3>
+                        <p>{{ plato.resumen }}</p>
+                        <p><a href="{{ path('plato_show', {
+                            'plato_slug': plato.slug,
+                            'menu_slug':  entity.slug,
+                        }) }}">{{ 'Ver plato'|trans }}</a></p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

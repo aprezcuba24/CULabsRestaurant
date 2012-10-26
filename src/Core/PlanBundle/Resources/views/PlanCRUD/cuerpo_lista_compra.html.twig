@@ -1,0 +1,14 @@
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>{{ 'Ingrediente'|trans }}</th>
+        <th>{{ 'Peso unitario'|trans }}</th>
+        <th>{{ 'Cantidad total'|trans }}</th>
+    </tr>
+    {% for item in reporte %}
+    <tr>
+        <td>{{ item.ingrediente }}</td>
+        <td class="test-{{ item.ingrediente.id }}-peso-unitario">{{ item.ingrediente.pesoUnitario }}</td>
+        <td class="test-{{ item.ingrediente.id }}-peso-total">{{ item.cantidad }}</td>
+    </tr>
+    {% endfor %}
+</table>

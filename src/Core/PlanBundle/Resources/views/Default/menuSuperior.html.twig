@@ -1,0 +1,11 @@
+<ul class="pull-left navegacion">
+    <li>
+        <a href="{{ path('plan_show', {'fecha':hoy|date('Y-m-d')}) }}">{{ 'Hoy'|trans }}</a>
+    </li>
+    <li>
+        <a href="{{ path('plan_show', {'fecha':manana|date('Y-m-d')}) }}">{{ 'Mañana'|trans }}</a>
+    </li>
+    <li>
+        <a href="{{ path('plan_show', {'fecha':pasado_manana|date('Y-m-d')}) }}">{{ 'Pasado mañana'|trans }}</a>
+    </li>
+</ul>

@@ -1,0 +1,31 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}
+    {{ 'add_menu_title'|trans({
+        '%fecha%':  entity.plan.fecha|date('Y-m-d'),
+        '%moento%': entity.momento,
+    }) }}
+{% endblock %}
+
+{% block actions %}
+    <ul class="actions">
+        {% if is_granted('ROLE_PLAN_SHOW') %}
+        <li>
+            <a href="{{ path('admin_plan_show', { 'id': plan.id }) }}" class="btn btn-icon btn-info">     
+              <i class="icon-eye-open"></i>{{ 'Show Plan'|trans }} 
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+    
+{% block view_body %}
+    {% form_theme form 'CULabsAdminBundle:Form:fields.html.twig' %}
+    <form id="form_new" action="#" method="post" {{ form_enctype(form) }} class="form-horizontal">
+        {{ form_widget(form) }}
+        <div class="form-actions">
+            <input class="btn btn-primary" value="{{ 'Save'|trans }}" type="submit"/>
+            <a href="{{ path('admin_plan_show', { 'id': plan.id }) }}" class="btn">{{ 'Cancel'|trans }}</a>
+        </div>
+    </form>
+{% endblock %}

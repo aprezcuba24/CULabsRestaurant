@@ -1,0 +1,117 @@
+img.rss {
+    width: 20px;
+}
+
+header .navegacion {
+    float: right;
+    margin-top: 12px;
+}
+header .navegacion li {
+    float: left;
+    list-style: none;
+    margin-right: 10px;
+    background: #0088CC;
+    padding: 7px;
+    border-radius: 4px 4px 4px 4px;
+}
+header .navegacion li a {
+    color: white;
+    font-weight: bold;
+}
+
+#content {
+    min-height: 434px;
+}
+#content h1, #content h2, #content h3, #content h4, #content h5 {
+    color: #DA4F49;
+}
+
+#redes_sociales {
+    margin-bottom: 10px;
+    height: 15px;
+}
+#redes_sociales * {
+    float: right;
+}
+
+a.link_banner:hover {
+    text-decoration: none;
+}
+
+.imagen_descripcion .thumbnail {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+#footer h3 {
+    color: #fff;
+}
+#footer {
+    background-color: #23262B;
+    padding-bottom: 20px;
+}
+
+#footer .destacados_container {
+    width: 650px;
+    float: left;
+}
+#footer .platos_destacados {
+    margin: 0;
+}
+#footer .platos_destacados li {
+    list-style: none;
+    float: left;
+    margin: 5px;
+}
+
+#footer ul.vinculos {
+    float: left;
+    margin: 0;
+}
+#footer ul.vinculos li {
+    float: left;
+    list-style: none;
+    margin-right: 10px;
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+    color: #fff;
+}
+#footer ul.vinculos li.last {
+    border-right: 0;
+}
+#footer ul.vinculos li a {
+    color: #fff;
+}
+
+#footer .calendar {
+    float: right;
+}
+
+/*Pagina Buscador*/
+.page_buscador .platos_buscador_list {
+    margin: 0;
+}
+.page_buscador .platos_buscador_list .item {
+    list-style: none;
+    margin-bottom: 10px;
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1px groove;
+}
+.page_buscador .platos_buscador_list .item:hover {
+    background-color: #e7e0e0;
+    border-radius: 4px 4px 4px 4px;
+}
+.page_buscador .platos_buscador_list .item a {
+    text-decoration: none;
+}
+.page_buscador .platos_buscador_list .item img {
+    float: left;
+    margin-right: 10px;
+}
+.page_buscador .platos_buscador_list .item .name {    
+    color: #DA4F49;
+    font-weight: bold;
+}
+.page_buscador .platos_buscador_list .item p {
+    color: black;
+}

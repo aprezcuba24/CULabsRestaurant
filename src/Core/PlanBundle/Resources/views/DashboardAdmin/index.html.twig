@@ -1,0 +1,7 @@
+{% extends '::backend_base.html.twig' %}
+
+{% block title_page %}{{ 'Dashboard'|trans }}{% endblock %}
+
+{% block content %}
+    {% render 'CorePlanBundle:PlanCRUD:listaCompraRender' %}
+{% endblock content %}

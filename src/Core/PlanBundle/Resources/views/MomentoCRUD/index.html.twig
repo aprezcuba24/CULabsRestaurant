@@ -1,0 +1,40 @@
+{% extends 'CULabsAdminBundle:Crud:index.html.twig' %}
+
+{% block title_page %}{{ 'Momento list'|trans}}{% endblock %}
+
+{% block list_id %}Momento_list{% endblock %}
+
+{% block filter_form %}
+<form action="{{ path('admin_momento_filter') }}" method="post">
+    <div class="form">
+        <div>
+            {% form_theme filter 'CULabsAdminBundle:Form:fields.html.twig' %}
+            {{  form_rest(filter) }}
+            <div style="clear: both"></div>
+        </div>
+        <input class="btn btn-primary" type="submit" name="action_filter" value="{{ 'Filter'|trans }}"/>
+        <input class="btn" type="submit" name="action_reset" value="{{ 'Reset'|trans }}" />
+    </div>
+</form>
+{% endblock %}
+
+{% block actions %}
+    <ul class="actions">
+        {% if is_granted('ROLE_MOMENTO_NEW') %}
+        <li>
+            <a href="{{ path('admin_momento_new') }}" class="btn btn-icon btn-primary">     
+              <i class="icon-plus"></i>{{ 'New'|trans }}  
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block list %}
+<div id="ajax_Momento">
+    {% include 'CorePlanBundle:MomentoCRUD:list.html.twig' with { 
+        'pager': pager,
+        'sort' : sort,
+    } %}
+</div>
+{% endblock %}

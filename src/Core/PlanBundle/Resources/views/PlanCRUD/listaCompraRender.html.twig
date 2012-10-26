@@ -1,0 +1,6 @@
+<h3>{{ 'plan_lista_compra'|trans({'%fecha%':fecha|date('d/m/Y')}) }}</h3>
+{% if plan is defined %}
+    {% include 'CorePlanBundle:PlanCRUD:cuerpo_lista_compra.html.twig' %}
+{% else %}
+    <p>{{ 'No hay lista de compra para este día.'|trans }}</p>
+{% endif %}

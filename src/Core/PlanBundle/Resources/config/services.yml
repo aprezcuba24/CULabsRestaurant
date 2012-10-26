@@ -1,0 +1,10 @@
+parameters:
+ 
+services:
+  vich_aleatorio_mamer:
+    class: Core\PlanBundle\Vich\AleatorioNamer
+   
+  plan.reporte:
+    class: Core\PlanBundle\Model\Reporte
+    arguments:
+      - "@doctrine.orm.entity_manager"

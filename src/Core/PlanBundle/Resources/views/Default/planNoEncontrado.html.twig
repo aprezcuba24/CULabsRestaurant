@@ -1,0 +1,8 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h1>{{ 'ofertas_dias'|trans({'%fecha%':fecha|date('Y-m-d')}) }}</h1>
+    <p>
+        {% trans %}Lo sentimos pero para este día no tenemos planificada la ofertas. Sentimos las molestias que esto pueda ocasionar.{% endtrans %}
+    </p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'New Menu'|trans }}{% endblock %}
+
+{% block actions %}
+    <ul class="actions">
+        <li>
+            <a href="{{ path('admin_menu') }}" class="btn btn-icon btn-info">     
+              <i class="icon-list"></i>{{ 'List'|trans }} 
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+    
+{% block view_body %}
+    {% include 'CorePlanBundle:MenuCRUD:form.html.twig' with { 
+        'form': form,
+    } %}
+{% endblock %}

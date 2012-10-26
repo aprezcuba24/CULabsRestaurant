@@ -1,0 +1,8 @@
+{% form_theme form 'CULabsAdminBundle:Form:fields.html.twig' %}
+<form id="form_new" action="#" method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_widget(form) }}
+    <div class="form-actions">
+        <input class="btn btn-primary" value="{{ 'Save'|trans }}" type="submit"/>
+        <a href="{{ path('admin_menu') }}" class="btn">{{ 'Cancel'|trans }}</a>
+    </div>
+</form>

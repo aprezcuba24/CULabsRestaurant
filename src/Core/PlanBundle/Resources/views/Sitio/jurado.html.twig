@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+<h1>{{ 'Para el jurado'|trans }}</h1>
+<p>La aplicación fue desarrollada por el programador independiente <strong>"Alejandro Pérez Cuba (aprezcuba24@gmail.com)"</strong></p>
+<h3>Bundles utilizados</h3>
+<ul>
+    <li>CULabsAdminBundle</li>
+    <li>CULabsjQueryBundle</li>
+    <li>KnpPaginatorBundle</li>
+    <li>KnpMenuBundle</li>
+    <li>LexikFormFilterBundle</li>
+    <li>FOSUserBundle</li>
+    <li>DoctrineFixturesBundle</li>
+    <li>VichUploaderBundle</li>
+    <li>AvalancheImagineBundle</li>
+    <li>StofDoctrineExtensionsBundle</li>
+</ul>
+<h3>Bundles genéricos desarrollados por el programador</h3>
+<p>Los bundles <strong>"CULabsAdminBundle"</strong> y <strong>"CULabsjQueryBundle"</strong> son bundles genéricos no desarrollados específicamente para esta aplicación.</p>
+<p>
+    El backend de la aplicación fue completamente implementado usando <strong>"CULabsAdminBundle"</strong>. 
+    Este bundle es un generador de código al estilo de la tarea "generate:doctrine:crud" pero con la diferencia de que el usuario puede crear sus propios themes. 
+    En el desarrollo del backend de esta aplicación se utilizó el theme que por defecto distribuido junto con el bundle. 
+    El bundle está inspirado en la generator de symfony1.
+</p>
+<h3>Lógica de la aplicación</h3>
+<p>
+    En la aplicación se permite el registro de información sobre platos, registrándose por cada uno de ellos los ingredientes necesarios para su elaboración.
+    Por cada uno de los ingredientes se registra su peso unitario, utilizado a la hora de generar la lista de compra.
+</p>
+<p>
+    Si permite además el registro de varios tipos de menú según las categorías previamente configuradas. Por cada menú se configura los distintos platos que los componen.
+</p>
+<p>
+    Para cada fecha se debe registrar un plan de oferta, donde se debe registrar los menú que se van a ofertas en cada momento (desayuno, almuerzo, comida).
+</p>
+<h3>Pantallas del frontend</h3>
+<p>
+    El el homepage de la aplicación se muestra los menú ofertados para la fecha actual. Através de los botones de navegación se puede buscar otro día.
+    Además en el pie del sitio existe un almanaque en el que se puede seleccionar el día para el cual se quiere ver la oferta.
+</p>
+<p>
+    Seleccionado cualquier menú se puede ver su descripción, además de los platos que lo compone.
+</p>
+<p>
+    Al seleccionar un plato se puede ver toda la información relacionada. En el pie de página aparece una selección de platos destacados.
+</p>
+<h3>Modelo de la base de datos</h3>
+<img src="{{ asset('/bundles/coreplan/images/Modelo.png') }}"/>
+<p>
+    <strong>Nota</strong>: Cualquier duda o sugerencia escribir a aprezcuba24@gmail.com
+</p>
+{% endblock %}

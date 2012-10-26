@@ -1,0 +1,18 @@
+<div class="row-fluid">
+    <ul class="thumbnails">
+        {% for menu in menus %}
+            <li class="menu_item span4">
+                <div class="thumbnail">
+                    <a href="{{ path('menu_show', {'slug':menu.slug}) }}">
+                        <img src="{{ vich_uploader_asset(menu, 'foto_file') | apply_filter('list_front') }}" alt="{{ menu.name }}" />
+                    </a>
+                    <div class="caption">
+                        <h3>{{ menu }}</h3>
+                        <p>{{ menu.resumen }}</p>
+                        <p><a href="{{ path('menu_show', {'slug':menu.slug}) }}">{{ 'Ver platos'|trans }}</a></p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

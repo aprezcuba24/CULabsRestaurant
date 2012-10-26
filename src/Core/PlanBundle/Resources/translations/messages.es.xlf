@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Categoria Menu -->
+            <trans-unit id="CatMenu list">
+                <source>CatMenu list</source>
+                <target>Mantenimiento Categoría de Menú</target>
+            </trans-unit>
+            <trans-unit id="New CatMenu">
+                <source>New CatMenu</source>
+                <target>Nueva Categoría de Menú</target>
+            </trans-unit>
+            <trans-unit id="Detail CatMenu">
+                <source>Detail CatMenu</source>
+                <target>Detalle Categoría de Menú</target>
+            </trans-unit>
+            <trans-unit id="Edit CatMenu">
+                <source>Edit CatMenu</source>
+                <target>Editar Categoría de Menú</target>
+            </trans-unit>
+            
+            <!-- Momento -->
+            <trans-unit id="Momento list">
+                <source>Momento list</source>
+                <target>Mantenimiento Momento</target>
+            </trans-unit>
+            <trans-unit id="New Momento">
+                <source>New Momento</source>
+                <target>Nuevo Momento</target>
+            </trans-unit>
+            <trans-unit id="Detail Momento">
+                <source>Detail Momento</source>
+                <target>Detalle Momento</target>
+            </trans-unit>
+            <trans-unit id="Edit Momento">
+                <source>Edit Momento</source>
+                <target>Editar Momento</target>
+            </trans-unit>
+            
+            <!-- Menu -->
+            <trans-unit id="Menu list">
+                <source>Menu list</source>
+                <target>Mantenimiento Menú</target>
+            </trans-unit>
+            <trans-unit id="New Menu">
+                <source>New Menu</source>
+                <target>Nuevo Menú</target>
+            </trans-unit>
+            <trans-unit id="Edit Menu">
+                <source>Edit Menu</source>
+                <target>Editar Menú</target>
+            </trans-unit>
+            <trans-unit id="Detail Menu">
+                <source>Detail Menu</source>
+                <target>Detalle Menú</target>
+            </trans-unit>
+            
+            <!-- Plan -->
+            <trans-unit id="Plan list">
+                <source>Plan list</source>
+                <target>Mantenimiento Plan</target>
+            </trans-unit>
+            <trans-unit id="Edit Plan">
+                <source>Edit Plan</source>
+                <target>Editar Plan</target>
+            </trans-unit>
+            <trans-unit id="New Plan">
+                <source>New Plan</source>
+                <target>Nuevo Plan</target>
+            </trans-unit>
+            <trans-unit id="Detail Plan">
+                <source>Detail Plan</source>
+                <target>Detalle Plan</target>
+            </trans-unit>
+            <trans-unit id="add_menu_title">
+                <source>add_menu_title</source>
+                <target>Adicionar menú: %fecha%, %moento%</target>
+            </trans-unit>
+            <trans-unit id="Show Plan">
+                <source>Show Plan</source>
+                <target>Mostrar Plan</target>
+            </trans-unit>
+            <trans-unit id="plan_lista_compra">
+                <source>plan_lista_compra</source>
+                <target>Lista de compra para el día %fecha%</target>
+            </trans-unit>
+            
+            <!--homepage-->
+            <trans-unit id="ofertas_dias">
+                <source>ofertas_dias</source>
+                <target>Ofertas del día "%fecha%"</target>
+            </trans-unit>
+            <trans-unit id="ofertas_dias_hoy">
+                <source>ofertas_dias_hoy</source>
+                <target>Ofertas para el día de hoy "%fecha%"</target>
+            </trans-unit>
+            <trans-unit id="ofertas_dias_manana">
+                <source>ofertas_dias_manana</source>
+                <target>Ofertas para mañana "%fecha%"</target>
+            </trans-unit>
+            <trans-unit id="ofertas_dias_pasado_manana">
+                <source>ofertas_dias_pasado_manana</source>
+                <target>Ofertas para pasado mañana "%fecha%"</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

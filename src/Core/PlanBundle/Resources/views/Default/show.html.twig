@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    {% if que_dia == 'hoy' %}
+        <h1>{{ 'ofertas_dias_hoy'|trans({'%fecha%':plan.fecha|date('d/m/Y')}) }}</h1>
+    {% elseif que_dia == 'manana' %}
+        <h1>{{ 'ofertas_dias_manana'|trans({'%fecha%':plan.fecha|date('d/m/Y')}) }}</h1>
+    {% elseif que_dia == 'pasado_manana' %}
+        <h1>{{ 'ofertas_dias_pasado_manana'|trans({'%fecha%':plan.fecha|date('d/m/Y')}) }}</h1>
+    {% else %}
+        <h1>{{ 'ofertas_dias'|trans({'%fecha%':plan.fecha|date('d/m/Y')}) }}</h1>
+    {% endif %}
+        
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{ path('plan_show', {'fecha':anterior|date('Y-m-d')}) }}">
+                &larr; {{ 'Anterior'|trans }}
+            </a>
+        </li>
+        <li class="next">
+            <a href="{{ path('plan_show', {'fecha':siguiente|date('Y-m-d')}) }}">
+                {{ 'Siguiente'|trans }} &rarr;
+            </a>
+        </li>
+    </ul>
+
+    {% for plan_momento in plan.planMomento %}
+    <h2 class="momento_titulo">{{ plan_momento.momento }}</h2>    
+    <div class="row-fluid">
+        {% include 'CorePlanBundle:Default:list.html.twig' with {'menus':plan_momento.menus} %}
+    </div>
+    {% endfor %}
+
+    <ul class="pager">
+        <li class="previous">
+            <a href="{{ path('plan_show', {'fecha':anterior|date('Y-m-d')}) }}">
+                &larr; {{ 'Anterior'|trans }}
+            </a>
+        </li>
+        <li class="next">
+            <a href="{{ path('plan_show', {'fecha':siguiente|date('Y-m-d')}) }}">
+                {{ 'Siguiente'|trans }} &rarr;
+            </a>
+        </li>
+    </ul>
+{% endblock %}

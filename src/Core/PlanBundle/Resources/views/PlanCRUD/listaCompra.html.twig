@@ -1,0 +1,27 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'plan_lista_compra'|trans({'%fecha%':plan.fecha|date('d-m-Y')}) }}{% endblock %}
+
+{% block actions %}
+    <div class="table-header">
+        <ul class="actions">
+            <li>
+                <a href="{{ path('admin_plan') }}" class="btn btn-icon btn-info">     
+                    <i class="icon-list"></i>{{ 'List'|trans }}  
+                </a>
+            </li>
+            {% if is_granted('ROLE_PLAN_SHOW') %}
+            <li>
+                <a href="{{ path('admin_plan_show', { 'id': plan.id }) }}" class="btn btn-icon btn-info">     
+                <i class="icon-eye-open"></i>{{ 'Show'|trans }} 
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}
+
+
+{% block view_body %}
+    {% include 'CorePlanBundle:PlanCRUD:cuerpo_lista_compra.html.twig' %}
+{% endblock %}
