@@ -1,0 +1,41 @@
+parameters:
+  menu.backend:
+    items:
+      Planificacion:
+        items:
+          Plan:
+            route: admin_plan
+            roles: [ROLE_ADMIN]
+          Menu:
+            route: admin_menu
+            roles: [ROLE_ADMIN]
+          CatMenu:
+            route: admin_menu_categoria
+            roles: [ROLE_ADMIN]
+          Momento:
+            route: admin_momento
+            roles: [ROLE_ADMIN]
+      Plato:
+        items:
+          Plato_Crud:
+            route: admin_plato
+            roles: [ROLE_ADMIN]
+          Ingrediente:
+            route: admin_ingrediente
+            roles: [ROLE_ADMIN]
+          CatIngrediente:
+            route: admin_ingrediente_categoria
+            roles: [ROLE_ADMIN]
+
+services:
+    backend.menu_builder:
+        class:     CULabs\AdminBundle\Menu\MenuConfigBuilder
+        arguments: ["@knp_menu.factory", "@router", "@event_dispatcher", "@security.context"]
+    backend.menu.backend:
+        class: Knp\Menu\MenuItem
+        factory_service: backend.menu_builder
+        factory_method: getMenu
+        arguments: ["@request", "%menu.backend%"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: main }

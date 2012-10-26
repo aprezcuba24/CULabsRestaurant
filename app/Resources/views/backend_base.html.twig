@@ -1,0 +1,22 @@
+{% extends 'CULabsAdminBundle:Layout:base.html.twig' %}
+
+{% block title %}CULabs Restaurant{% endblock %}
+
+{% block title_app %}CULabs Restaurant{% endblock %}
+{% block title_app_url(path('admin_dashboard')) %}
+
+{% block javascript_src %}
+    <script type="text/javascript" src="{{ asset('/js/jquery/jquery-1.7.1.js') }}"></script>
+    <script src="{{ asset('/js/jquery/jquery-ui-1.8.12.custom.min.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+    
+{% block menu_top %}
+    {{ knp_menu_render('main', {
+        'template':'CULabsAdminBundle:Layout:twitter_menu.html.twig',
+    }) }}
+{% endblock %}
+    
+{% block user_name(app.user) %}
+    
+{% block url_logout(path('fos_user_security_logout')) %}

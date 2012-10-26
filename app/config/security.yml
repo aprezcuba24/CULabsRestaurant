@@ -1,0 +1,87 @@
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+      
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        backend:
+            pattern:    ^/admin/
+            anonymous:  ~
+            form_login:
+                provider:      fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path:    /admin/login
+                check_path:    /admin/login_check
+                default_target_path: /admin/dashboard
+            logout:
+                path:   /admin/logout
+                target: /admin/login
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+        
+    role_hierarchy:        
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN:       
+         - ROLE_USER
+         # Categoria ingrediente
+         - ROLE_CATINGREDIENTE_LIST
+         - ROLE_CATINGREDIENTE_SHOW
+         - ROLE_CATINGREDIENTE_NEW
+         - ROLE_CATINGREDIENTE_EDIT
+         - ROLE_CATINGREDIENTE_DELETE
+         # Categoria Menu
+         - ROLE_CATMENU_LIST
+         - ROLE_CATMENU_NEW
+         - ROLE_CATMENU_SHOW
+         - ROLE_CATMENU_EDIT
+         - ROLE_CATMENU_DELETE
+         # Ingrediente
+         - ROLE_INGREDIENTE_LIST
+         - ROLE_INGREDIENTE_NEW
+         - ROLE_INGREDIENTE_SHOW
+         - ROLE_INGREDIENTE_EDIT
+         - ROLE_INGREDIENTE_DELETE
+         #Momento
+         - ROLE_MOMENTO_LIST
+         - ROLE_MOMENTO_NEW
+         - ROLE_MOMENTO_EDIT
+         - ROLE_MOMENTO_SHOW
+         - ROLE_MOMENTO_DELETE
+         # Plato
+         - ROLE_PLATO_LIST
+         - ROLE_PLATO_NEW
+         - ROLE_PLATO_EDIT
+         - ROLE_PLATO_DELETE
+         - ROLE_PLATO_SHOW
+         - ROLE_PLAN_ADD_PLANMOMENTO
+         # Menu
+         - ROLE_MENU_LIST
+         - ROLE_MENU_EDIT
+         - ROLE_MENU_NEW
+         - ROLE_MENU_SHOW
+         - ROLE_MENU_DELETE
+         # Plan
+         - ROLE_PLAN_LIST
+         - ROLE_PLAN_NEW
+         - ROLE_PLAN_EDIT
+         - ROLE_PLAN_SHOW
+         - ROLE_PLAN_DELETE
+         - ROLE_PLAN_DELETE_PLANMOMENTO
+         - ROLE_PLAN_LIST_COMPRA

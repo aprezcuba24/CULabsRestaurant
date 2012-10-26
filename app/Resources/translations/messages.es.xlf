@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!--Admin CRUD-->
+            <trans-unit id="Name">
+                <source>Name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="Filter">
+                <source>Filter</source>
+                <target>Filtrar</target>
+            </trans-unit>
+            <trans-unit id="Reset">
+                <source>Reset</source>
+                <target>Limpiar</target>
+            </trans-unit>
+            <trans-unit id="Show_Hide_Filter">
+                <source>Show/Hide Filter</source>
+                <target>Esconder/Mostrar Filtro</target>
+            </trans-unit>
+            <trans-unit id="new">
+                <source>New</source>
+                <target>Nuevo</target>
+            </trans-unit>
+            <trans-unit id="show">
+                <source>show</source>
+                <target>Mostrar</target>
+            </trans-unit>
+            <trans-unit id="edit">
+                <source>edit</source>
+                <target>Editar</target>
+            </trans-unit>
+            <trans-unit id="Edit">
+                <source>Edit</source>
+                <target>Editar</target>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>delete</source>
+                <target>Eliminar</target>
+            </trans-unit>
+            <trans-unit id="Delete">
+                <source>Delete</source>
+                <target>Eliminar</target>
+            </trans-unit>
+            <trans-unit id="List">
+                <source>List</source>
+                <target>Listado</target>
+            </trans-unit>
+            <trans-unit id="Options">
+                <source>Options</source>
+                <target>Opciones</target>
+            </trans-unit>
+            <trans-unit id="Save">
+                <source>Save</source>
+                <target>Salvar</target>
+            </trans-unit>
+            <trans-unit id="Cancel">
+                <source>Cancel</source>
+                <target>Cancelar</target>
+            </trans-unit>
+            <trans-unit id="there is not record">
+                <source>there is not record</source>
+                <target>No existen registros</target>
+            </trans-unit>
+            <!--Fin Admin CRUD-->
+            
+            <!--Menu-->
+            <trans-unit id="label_menu_Plato">
+                <source>label_menu_Plato</source>
+                <target>Plato</target>
+            </trans-unit>
+            <trans-unit id="label_menu_CatIngrediente">
+                <source>label_menu_CatIngrediente</source>
+                <target>Categoría Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="label_menu_Planificacion">
+                <source>label_menu_Planificacion</source>
+                <target>Planificación</target>
+            </trans-unit>
+            <trans-unit id="label_menu_CatMenu">
+                <source>label_menu_CatMenu</source>
+                <target>Menú Categoría</target>
+            </trans-unit>
+            <trans-unit id="label_menu_Ingrediente">
+                <source>label_menu_Ingrediente</source>
+                <target>Ingrediente</target>
+            </trans-unit>
+            <trans-unit id="label_menu_Momento">
+                <source>label_menu_Momento</source>
+                <target>Momento</target>
+            </trans-unit>
+            <trans-unit id="label_menu_Plato_Crud">
+                <source>label_menu_Plato_Crud</source>
+                <target>Plato</target>
+            </trans-unit>
+            <trans-unit id="label_menu_Menu">
+                <source>label_menu_Menu</source>
+                <target>Menu</target>
+            </trans-unit>
+            <!--Fin Menu-->
+            
+            <!--Plan-->
+            <trans-unit id="label_menu_Plan">
+                <source>label_menu_Plan</source>
+                <target>Plan</target>
+            </trans-unit>
+            <!--Fin Plan-->
+            
+            <trans-unit id="Categoria">
+                <source>Categoria</source>
+                <target>Categoría</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

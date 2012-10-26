@@ -1,0 +1,10 @@
+/vendor/
+/app/logs/
+/app/cache/
+/app/data/
+/nbproject/
+/app/config/parameters.ini
+/web/media/
+/web/bundles/
+/web/uploads/*
+*~

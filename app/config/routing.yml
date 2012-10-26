@@ -1,0 +1,40 @@
+homepage:
+    pattern:  /
+    defaults: { _controller: CorePlanBundle:Default:index }
+  
+
+core_plan:
+    resource: "@CorePlanBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+core_plato:
+    resource: "@CorePlatoBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+core_user:
+    resource: "@CoreUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+   
+#Seguridad
+fos_user_security_login:
+    pattern:  /admin/login
+    defaults: { _controller: FOSUserBundle:Security:login }  
+    
+fos_user_security_check:
+    pattern:  /admin/login_check
+  
+fos_user_security_logout:
+    pattern:  /admin/logout
+#Fin Seguridad
+
+_imagine:
+    resource: .
+    type:     imagine
+
+# Internal routing configuration to handle ESI
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal
