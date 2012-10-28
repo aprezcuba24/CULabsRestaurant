@@ -26,6 +26,11 @@ parameters:
           CatIngrediente:
             route: admin_ingrediente_categoria
             roles: [ROLE_ADMIN]
+      Seguridad:
+        items:
+          User:
+            route: admin_user
+            roles: [ROLE_ADMIN]        
 
 services:
     backend.menu_builder:

@@ -85,3 +85,9 @@ security:
          - ROLE_PLAN_DELETE
          - ROLE_PLAN_DELETE_PLANMOMENTO
          - ROLE_PLAN_LIST_COMPRA
+         # User
+         - ROLE_USER_LIST
+         - ROLE_USER_NEW
+         - ROLE_USER_EDIT
+         - ROLE_USER_SHOW
+         - ROLE_USER_DELETE

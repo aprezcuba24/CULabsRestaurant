@@ -98,6 +98,14 @@
                 <source>label_menu_Menu</source>
                 <target>Menu</target>
             </trans-unit>
+            <trans-unit id="label_menu_Seguridad">
+                <source>label_menu_Seguridad</source>
+                <target>Seguridad</target>
+            </trans-unit>
+            <trans-unit id="label_menu_User">
+                <source>label_menu_User</source>
+                <target>Usuarios</target>
+            </trans-unit>
             <!--Fin Menu-->
             
             <!--Plan-->

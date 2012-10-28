@@ -1,0 +1,40 @@
+{% extends 'CULabsAdminBundle:Crud:view.html.twig' %}
+
+{% block title_page %}{{ 'Edit User'|trans }}{% endblock %}
+
+{% block actions %}
+    <ul class="actions">
+        <li>
+            <a href="{{ path('admin_user') }}" class="btn btn-icon btn-info">     
+              <i class="icon-list"></i>{{ 'List'|trans }} 
+            </a>
+        </li>
+        {% if is_granted('ROLE_USER_NEW') %}
+        <li>
+            <a href="{{ path('admin_user_new') }}" class="btn btn-icon btn-info">     
+              <i class="icon-plus"></i>{{ 'New'|trans }} 
+            </a>
+        </li>
+        {% endif %}
+        {% if is_granted('ROLE_USER_SHOW') %}
+        <li>
+            <a href="{{ path('admin_user_show', { 'id': entity.id }) }}" class="btn btn-icon btn-info">     
+              <i class="icon-eye-open"></i>{{ 'Show'|trans }} 
+            </a>
+        </li>
+        {% endif %}
+        {% if is_granted('ROLE_USER_DELETE') %}
+        <li>
+            <a href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_user_delete', { 'id': entity.id }) }}')" class="btn btn-icon btn-info">     
+              <i class="icon-remove"></i>{{ 'Delete'|trans }} 
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+{% endblock %}
+    
+{% block view_body %}
+    {% include 'CoreUserBundle:UserCRUD:form.html.twig' with { 
+        'form': form,
+    } %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'CULabsAdminBundle:Crud:list.html.twig' %}
+
+{% block route_batch %}{{ path('admin_user_batch') }}{% endblock %}
+
+{% block header_table %}
+{% import 'CULabsAdminBundle:Crud:macros.html.twig' as macros %}
+<tr>
+    <th class="checkall batch"><input type="checkbox" onchange="admin_list_checkall(this, '#User_list .check input')"/></th>
+    <th>{{ macros.sort_field('Username'|trans, 'username', sort, 'ajax_User', 'admin_user_sort', 'indicator_table_User') }}</th>    
+    <th>{{ macros.sort_field('Email'|trans, 'email', sort, 'ajax_User', 'admin_user_sort', 'indicator_table_User') }}</th>    
+    <th>{{ macros.sort_field('Lastlogin'|trans, 'last_login', sort, 'ajax_User', 'admin_user_sort', 'indicator_table_User') }}</th>    
+    <th>{{ 'Options'|trans }}</th>
+</tr>
+{% endblock %}
+
+{% block body_table %}
+    {% for entity in pager %}
+    <tr id="row_{{ loop.index }}" onclick="admin_list_checkrow('#' + this.id + ' .check input')">
+        <td class="check"><input type="checkbox" value="{{ entity.id }}" name="ids[]"/></td>
+        <td><a href="{{ path('admin_user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
+        <td>{{ entity.email }}</td>
+        <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif%}</td>
+        <td class="opcions span4">
+            <ul>                  
+                <li>
+                    {% if is_granted('ROLE_USER_SHOW') %}
+                    <a class="btn btn-icon btn-info btn-small" href="{{ path('admin_user_show', { 'id': entity.id }) }}">
+                        <i class="icon-eye-open"></i>{{ 'show'|trans }}
+                    </a>
+                    {% endif %}
+                </li>                  
+                <li>
+                    {% if is_granted('ROLE_USER_EDIT') %}
+                    <a class="btn btn-icon btn-info btn-small" href="{{ path('admin_user_edit', { 'id': entity.id }) }}">
+                        <i class="icon-pencil"></i>{{ 'edit'|trans }}
+                    </a>
+                    {% endif %}
+                </li>                  
+                <li>
+                    {% if is_granted('ROLE_USER_DELETE') %}
+                    <a class="btn btn-icon btn-danger btn-small" href="#" onclick="confirmarUrl('{{ 'Realmente desea borrar'|trans }}', '{{ path('admin_user_delete', { 'id': entity.id }) }}')">
+                        <i class="icon-remove"></i>{{ 'delete'|trans }}
+                    </a>                                      
+                    {% endif %}                    
+                </li>                
+            </ul>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+ 
+{% block footer_table %}
+    <div class="batch">
+        {% if is_granted('ROLE_USER_DELETE') %}
+        <select name="batch_action" class="batch_actions">
+            <option value="">{{'Select a action'|trans}}</option>
+            <option value="delete">{{'Delete'|trans}}</option>
+        </select>
+        <input type="submit" class="btn btn-primary" value="{{'Ok'|trans}}"/>
+        {% endif %}
+        <div class="loader">
+            <img style="display: none" id="indicator_table_User" src="{{ asset('bundles/culabsadmin/images/loader.gif') }}"/>
+        </div>
+    </div>
+    {% include 'CULabsAdminBundle:Crud:pager.html.twig' with { 
+        'pager':                pager,
+        'zona':                 'ajax_User',
+        'url':                  path('admin_user'),
+        'url_changemaxperpage': path('admin_user_changemaxperpage'),
+        'maxperpage_list':      [10,20,30,50, 100],
+    } %}
+{% endblock %}
