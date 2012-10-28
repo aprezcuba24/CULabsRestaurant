@@ -12,7 +12,7 @@ class Load extends AbstractFixture
     {
         $user = new User();
         $user->setUsername('admin');
-        $user->setPlainPassword('admin');
+        $user->setPlainPassword('culabspropuesta');
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $user->setEmail('admin@culabsrestaurant.localhost');
         $user->setEnabled(true);
@@ -21,7 +21,7 @@ class Load extends AbstractFixture
         
         $user = new User();
         $user->setUsername('administrador');
-        $user->setPlainPassword('administrador');
+        $user->setPlainPassword('culabspropuesta');
         $user->setRoles(array('ROLE_ADMIN'));
         $user->setEmail('administrador@culabsrestaurant.localhost');
         $user->setEnabled(true);
