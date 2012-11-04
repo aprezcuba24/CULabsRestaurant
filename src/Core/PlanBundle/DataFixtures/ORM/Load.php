@@ -75,7 +75,8 @@ class Load extends AbstractFixture implements ContainerAwareInterface
         $manager->flush();
         
         $alternar = true;        
-        $fecha = new \DateTime('2012-10-01');
+        $fecha = new \DateTime();
+        $fecha->sub(new \DateInterval('P0Y0M35DT0H0M0S'));
         for ($i = 0; $i < 70; $i++) {
             
             $fecha = $fecha->add(new \DateInterval('P0Y0M1DT0H0M0S'));

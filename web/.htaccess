@@ -6,437 +6,494 @@
     #</IfModule>
     
     # skip "real" requests
-	RewriteCond %{REQUEST_FILENAME} -f
-	RewriteRule .* - [QSA,L]
-
-	# _wdt
-	RewriteCond %{REQUEST_URI} ^/_wdt/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_wdt,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:toolbarAction]
-
-	# _profiler_search
-	RewriteCond %{REQUEST_URI} ^/_profiler/search$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_search,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:searchAction]
-
-	# _profiler_purge
-	RewriteCond %{REQUEST_URI} ^/_profiler/purge$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_purge,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:purgeAction]
-
-	# _profiler_info
-	RewriteCond %{REQUEST_URI} ^/_profiler/info/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_info,E=_ROUTING_about:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:infoAction]
-
-	# _profiler_import
-	RewriteCond %{REQUEST_URI} ^/_profiler/import$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_import,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:importAction]
-
-	# _profiler_export
-	RewriteCond %{REQUEST_URI} ^/_profiler/export/([^/\.]+)\.txt$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_export,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:exportAction]
-
-	# _profiler_phpinfo
-	RewriteCond %{REQUEST_URI} ^/_profiler/phpinfo$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_phpinfo,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:phpinfoAction]
-
-	# _profiler_search_results
-	RewriteCond %{REQUEST_URI} ^/_profiler/([^/]+)/search/results$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_search_results,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:searchResultsAction]
-
-	# _profiler
-	RewriteCond %{REQUEST_URI} ^/_profiler/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:panelAction]
-
-	# _profiler_redirect
-	RewriteCond %{REQUEST_URI} ^/_profiler$
-	RewriteRule .* $0/ [QSA,L,R=301]
-	RewriteCond %{REQUEST_URI} ^/_profiler/$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_redirect,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController\:\:redirectAction,E=_ROUTING_DEFAULTS_route:_profiler_search_results,E=_ROUTING_DEFAULTS_token:empty,E=_ROUTING_DEFAULTS_ip:,E=_ROUTING_DEFAULTS_url:,E=_ROUTING_DEFAULTS_method:,E=_ROUTING_DEFAULTS_limit:10]
-
-	# _configurator_home
-	RewriteCond %{REQUEST_URI} ^/_configurator$
-	RewriteRule .* $0/ [QSA,L,R=301]
-	RewriteCond %{REQUEST_URI} ^/_configurator/$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_configurator_home,E=_ROUTING_DEFAULTS__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:checkAction]
-
-	# _configurator_step
-	RewriteCond %{REQUEST_URI} ^/_configurator/step/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_configurator_step,E=_ROUTING_index:%1,E=_ROUTING_DEFAULTS__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:stepAction]
-
-	# _configurator_final
-	RewriteCond %{REQUEST_URI} ^/_configurator/final$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_configurator_final,E=_ROUTING_DEFAULTS__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:finalAction]
-
-	# homepage
-	RewriteCond %{REQUEST_URI} ^/$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:homepage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DefaultController\:\:indexAction]
-
-	# admin_menu_categoria
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:indexAction]
-
-	# admin_menu_categoria_filter
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:filterAction]
-
-	# admin_menu_categoria_show
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:showAction]
-
-	# admin_menu_categoria_new
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:newAction]
-
-	# admin_menu_categoria_edit
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:editAction]
-
-	# admin_menu_categoria_delete
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:deleteAction]
-
-	# admin_menu_categoria_batch
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:batchAction]
-
-	# admin_menu_categoria_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_menu_categoria_sort
-	RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:sortAction]
-
-	# admin_dashboard
-	RewriteCond %{REQUEST_URI} ^/admin/dashboard$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_dashboard,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DashboardAdminController\:\:indexAction]
-
-	# core_plan_default_index
-	RewriteCond %{REQUEST_URI} ^/$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:core_plan_default_index,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DefaultController\:\:indexAction]
-
-	# plan_show
-	RewriteCond %{REQUEST_URI} ^/ofertas/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:plan_show,E=_ROUTING_fecha:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DefaultController\:\:showAction]
-
-	# admin_menu
-	RewriteCond %{REQUEST_URI} ^/admin/menu$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:indexAction]
-
-	# admin_menu_filter
-	RewriteCond %{REQUEST_URI} ^/admin/menu/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/menu/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:filterAction]
-
-	# admin_menu_show
-	RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:showAction]
-
-	# admin_menu_new
-	RewriteCond %{REQUEST_URI} ^/admin/menu/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:newAction]
-
-	# admin_menu_edit
-	RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:editAction]
-
-	# admin_menu_delete
-	RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:deleteAction]
-
-	# admin_menu_batch
-	RewriteCond %{REQUEST_URI} ^/admin/menu/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:batchAction]
-
-	# admin_menu_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/menu/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_menu_sort
-	RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:sortAction]
-
-	# menu_show
-	RewriteCond %{REQUEST_URI} ^/menu/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:menu_show,E=_ROUTING_slug:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuController\:\:showAction]
-
-	# admin_momento
-	RewriteCond %{REQUEST_URI} ^/admin/momento$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:indexAction]
-
-	# admin_momento_filter
-	RewriteCond %{REQUEST_URI} ^/admin/momento/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/momento/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:filterAction]
-
-	# admin_momento_show
-	RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:showAction]
-
-	# admin_momento_new
-	RewriteCond %{REQUEST_URI} ^/admin/momento/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:newAction]
-
-	# admin_momento_edit
-	RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:editAction]
-
-	# admin_momento_delete
-	RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:deleteAction]
-
-	# admin_momento_batch
-	RewriteCond %{REQUEST_URI} ^/admin/momento/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:batchAction]
-
-	# admin_momento_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/momento/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_momento_sort
-	RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:sortAction]
-
-	# admin_plan
-	RewriteCond %{REQUEST_URI} ^/admin/plan$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:indexAction]
-
-	# admin_plan_filter
-	RewriteCond %{REQUEST_URI} ^/admin/plan/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/plan/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:filterAction]
-
-	# admin_plan_list_compra
-	RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/lista\-compra$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_list_compra,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:listaCompraAction]
-
-	# admin_plan_show
-	RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:showAction]
-
-	# admin_plan_new
-	RewriteCond %{REQUEST_URI} ^/admin/plan/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:newAction]
-
-	# admin_plan_edit
-	RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:editAction]
-
-	# admin_plan_delete
-	RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:deleteAction]
-
-	# admin_plan_batch
-	RewriteCond %{REQUEST_URI} ^/admin/plan/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:batchAction]
-
-	# admin_plan_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/plan/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_plan_sort
-	RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:sortAction]
-
-	# admin_add_plan_momento
-	RewriteCond %{REQUEST_URI} ^/admin/plan/plan\-momento/([^/]+)/([^/]+)/add$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_add_plan_momento,E=_ROUTING_id_plan:%1,E=_ROUTING_id_momento:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:addPlanMomentoAction]
-
-	# admin_delete_plan_momento
-	RewriteCond %{REQUEST_URI} ^/admin/plan/plan\-momento/([^/]+)/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_delete_plan_momento,E=_ROUTING_id_plan_momento:%1,E=_ROUTING_id_menu:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:deletePlanMomentoAction]
-
-	# admin_ingrediente_categoria
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:indexAction]
-
-	# admin_ingrediente_categoria_filter
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:filterAction]
-
-	# admin_ingrediente_categoria_show
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:showAction]
-
-	# admin_ingrediente_categoria_new
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_new,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:newAction]
-
-	# admin_ingrediente_categoria_edit
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:editAction]
-
-	# admin_ingrediente_categoria_delete
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:deleteAction]
-
-	# admin_ingrediente_categoria_batch
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:batchAction]
-
-	# admin_ingrediente_categoria_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_ingrediente_categoria_sort
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:sortAction]
-
-	# plato_show
-	RewriteCond %{REQUEST_URI} ^/menu/([^/]+)/plato/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:plato_show,E=_ROUTING_menu_slug:%1,E=_ROUTING_plato_slug:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\DefaultController\:\:showAction]
-
-	# plato_show_simple
-	RewriteCond %{REQUEST_URI} ^/plato/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:plato_show_simple,E=_ROUTING_slug:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\DefaultController\:\:showSimpleAction]
-
-	# admin_ingrediente
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:indexAction]
-
-	# admin_ingrediente_filter
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:filterAction]
-
-	# admin_ingrediente_show
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:showAction]
-
-	# admin_ingrediente_new
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_new,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:newAction]
-
-	# admin_ingrediente_edit
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:editAction]
-
-	# admin_ingrediente_delete
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:deleteAction]
-
-	# admin_ingrediente_batch
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:batchAction]
-
-	# admin_ingrediente_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_ingrediente_sort
-	RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:sortAction]
-
-	# admin_plato
-	RewriteCond %{REQUEST_URI} ^/admin/plato$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:indexAction]
-
-	# admin_plato_filter
-	RewriteCond %{REQUEST_URI} ^/admin/plato/filter$
-	RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
-	RewriteCond %{REQUEST_URI} ^/admin/plato/filter$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:filterAction]
-
-	# admin_plato_show
-	RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/show$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:showAction]
-
-	# admin_plato_new
-	RewriteCond %{REQUEST_URI} ^/admin/plato/new$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_new,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:newAction]
-
-	# admin_plato_edit
-	RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/edit$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:editAction]
-
-	# admin_plato_delete
-	RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/delete$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:deleteAction]
-
-	# admin_plato_batch
-	RewriteCond %{REQUEST_URI} ^/admin/plato/batch$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:batchAction]
-
-	# admin_plato_changemaxperpage
-	RewriteCond %{REQUEST_URI} ^/admin/plato/changemaxperpage$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:changeMaxPerPageAction]
-
-	# admin_plato_sort
-	RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/([^/]+)/short$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:sortAction]
-
-	# core_user_default_index
-	RewriteCond %{REQUEST_URI} ^/hello/([^/]+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:core_user_default_index,E=_ROUTING_name:%1,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\DefaultController\:\:indexAction]
-
-	# fos_user_security_login
-	RewriteCond %{REQUEST_URI} ^/admin/login$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:fos_user_security_login,E=_ROUTING_DEFAULTS__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:loginAction]
-
-	# fos_user_security_check
-	RewriteCond %{REQUEST_URI} ^/admin/login_check$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:fos_user_security_check]
-
-	# fos_user_security_logout
-	RewriteCond %{REQUEST_URI} ^/admin/logout$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:fos_user_security_logout]
-
-	# _imagine_list_admin
-	RewriteCond %{REQUEST_URI} ^/media/cache/list_admin/(.+)$
-	RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
-	RewriteCond %{REQUEST_URI} ^/media/cache/list_admin/(.+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_list_admin,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:list_admin]
-
-	# _imagine_list_front
-	RewriteCond %{REQUEST_URI} ^/media/cache/list_front/(.+)$
-	RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
-	RewriteCond %{REQUEST_URI} ^/media/cache/list_front/(.+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_list_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:list_front]
-
-	# _imagine_list_miniatura_front
-	RewriteCond %{REQUEST_URI} ^/media/cache/list_miniatura_front/(.+)$
-	RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
-	RewriteCond %{REQUEST_URI} ^/media/cache/list_miniatura_front/(.+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_list_miniatura_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:list_miniatura_front]
-
-	# _imagine_show_menor_front
-	RewriteCond %{REQUEST_URI} ^/media/cache/show_menor_front/(.+)$
-	RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
-	RewriteCond %{REQUEST_URI} ^/media/cache/show_menor_front/(.+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_show_menor_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:show_menor_front]
-
-	# _imagine_show_front
-	RewriteCond %{REQUEST_URI} ^/media/cache/show_front/(.+)$
-	RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
-	RewriteCond %{REQUEST_URI} ^/media/cache/show_front/(.+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_show_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:show_front]
-
-	# _imagine_destacado_front
-	RewriteCond %{REQUEST_URI} ^/media/cache/destacado_front/(.+)$
-	RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
-	RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
-	RewriteCond %{REQUEST_URI} ^/media/cache/destacado_front/(.+)$
-	RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_destacado_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:destacado_front]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule .* - [QSA,L]
+
+    # _wdt
+    RewriteCond %{REQUEST_URI} ^/_wdt/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_wdt,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:toolbarAction]
+
+    # _profiler_search
+    RewriteCond %{REQUEST_URI} ^/_profiler/search$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_search,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:searchAction]
+
+    # _profiler_purge
+    RewriteCond %{REQUEST_URI} ^/_profiler/purge$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_purge,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:purgeAction]
+
+    # _profiler_info
+    RewriteCond %{REQUEST_URI} ^/_profiler/info/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_info,E=_ROUTING_about:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:infoAction]
+
+    # _profiler_import
+    RewriteCond %{REQUEST_URI} ^/_profiler/import$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_import,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:importAction]
+
+    # _profiler_export
+    RewriteCond %{REQUEST_URI} ^/_profiler/export/([^/\.]+)\.txt$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_export,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:exportAction]
+
+    # _profiler_phpinfo
+    RewriteCond %{REQUEST_URI} ^/_profiler/phpinfo$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_phpinfo,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:phpinfoAction]
+
+    # _profiler_search_results
+    RewriteCond %{REQUEST_URI} ^/_profiler/([^/]+)/search/results$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_search_results,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:searchResultsAction]
+
+    # _profiler
+    RewriteCond %{REQUEST_URI} ^/_profiler/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler,E=_ROUTING_token:%1,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController\:\:panelAction]
+
+    # _profiler_redirect
+    RewriteCond %{REQUEST_URI} ^/_profiler$
+    RewriteRule .* $0/ [QSA,L,R=301]
+    RewriteCond %{REQUEST_URI} ^/_profiler/$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_profiler_redirect,E=_ROUTING_DEFAULTS__controller:Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController\:\:redirectAction,E=_ROUTING_DEFAULTS_route:_profiler_search_results,E=_ROUTING_DEFAULTS_token:empty,E=_ROUTING_DEFAULTS_ip:,E=_ROUTING_DEFAULTS_url:,E=_ROUTING_DEFAULTS_method:,E=_ROUTING_DEFAULTS_limit:10]
+
+    # _configurator_home
+    RewriteCond %{REQUEST_URI} ^/_configurator$
+    RewriteRule .* $0/ [QSA,L,R=301]
+    RewriteCond %{REQUEST_URI} ^/_configurator/$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_configurator_home,E=_ROUTING_DEFAULTS__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:checkAction]
+
+    # _configurator_step
+    RewriteCond %{REQUEST_URI} ^/_configurator/step/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_configurator_step,E=_ROUTING_index:%1,E=_ROUTING_DEFAULTS__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:stepAction]
+
+    # _configurator_final
+    RewriteCond %{REQUEST_URI} ^/_configurator/final$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_configurator_final,E=_ROUTING_DEFAULTS__controller:Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController\:\:finalAction]
+
+    # homepage
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:homepage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DefaultController\:\:indexAction]
+
+    # admin_menu_categoria
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:indexAction]
+
+    # admin_menu_categoria_filter
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:filterAction]
+
+    # admin_menu_categoria_show
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:showAction]
+
+    # admin_menu_categoria_new
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:newAction]
+
+    # admin_menu_categoria_edit
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:editAction]
+
+    # admin_menu_categoria_delete
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:deleteAction]
+
+    # admin_menu_categoria_batch
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:batchAction]
+
+    # admin_menu_categoria_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_menu_categoria_sort
+    RewriteCond %{REQUEST_URI} ^/admin/menu/categoria/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_categoria_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\CatMenuCRUDController\:\:sortAction]
+
+    # admin_dashboard
+    RewriteCond %{REQUEST_URI} ^/admin/dashboard$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_dashboard,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DashboardAdminController\:\:indexAction]
+
+    # core_plan_default_index
+    RewriteCond %{REQUEST_URI} ^/$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:core_plan_default_index,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DefaultController\:\:indexAction]
+
+    # plan_show
+    RewriteCond %{REQUEST_URI} ^/ofertas/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:plan_show,E=_ROUTING_fecha:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\DefaultController\:\:showAction]
+
+    # admin_menu
+    RewriteCond %{REQUEST_URI} ^/admin/menu$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:indexAction]
+
+    # admin_menu_filter
+    RewriteCond %{REQUEST_URI} ^/admin/menu/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/menu/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:filterAction]
+
+    # admin_menu_show
+    RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:showAction]
+
+    # admin_menu_new
+    RewriteCond %{REQUEST_URI} ^/admin/menu/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:newAction]
+
+    # admin_menu_edit
+    RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:editAction]
+
+    # admin_menu_delete
+    RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:deleteAction]
+
+    # admin_menu_batch
+    RewriteCond %{REQUEST_URI} ^/admin/menu/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:batchAction]
+
+    # admin_menu_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/menu/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_menu_sort
+    RewriteCond %{REQUEST_URI} ^/admin/menu/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_menu_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuCRUDController\:\:sortAction]
+
+    # menu_show
+    RewriteCond %{REQUEST_URI} ^/menu/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:menu_show,E=_ROUTING_slug:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MenuController\:\:showAction]
+
+    # admin_momento
+    RewriteCond %{REQUEST_URI} ^/admin/momento$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:indexAction]
+
+    # admin_momento_filter
+    RewriteCond %{REQUEST_URI} ^/admin/momento/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/momento/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:filterAction]
+
+    # admin_momento_show
+    RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:showAction]
+
+    # admin_momento_new
+    RewriteCond %{REQUEST_URI} ^/admin/momento/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:newAction]
+
+    # admin_momento_edit
+    RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:editAction]
+
+    # admin_momento_delete
+    RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:deleteAction]
+
+    # admin_momento_batch
+    RewriteCond %{REQUEST_URI} ^/admin/momento/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:batchAction]
+
+    # admin_momento_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/momento/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_momento_sort
+    RewriteCond %{REQUEST_URI} ^/admin/momento/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_momento_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\MomentoCRUDController\:\:sortAction]
+
+    # admin_plan
+    RewriteCond %{REQUEST_URI} ^/admin/plan$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:indexAction]
+
+    # admin_plan_filter
+    RewriteCond %{REQUEST_URI} ^/admin/plan/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/plan/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:filterAction]
+
+    # admin_plan_list_compra
+    RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/lista\-compra$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_list_compra,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:listaCompraAction]
+
+    # admin_plan_show
+    RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:showAction]
+
+    # admin_plan_new
+    RewriteCond %{REQUEST_URI} ^/admin/plan/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_new,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:newAction]
+
+    # admin_plan_edit
+    RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:editAction]
+
+    # admin_plan_delete
+    RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:deleteAction]
+
+    # admin_plan_batch
+    RewriteCond %{REQUEST_URI} ^/admin/plan/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:batchAction]
+
+    # admin_plan_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/plan/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_plan_sort
+    RewriteCond %{REQUEST_URI} ^/admin/plan/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plan_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:sortAction]
+
+    # admin_add_plan_momento
+    RewriteCond %{REQUEST_URI} ^/admin/plan/plan\-momento/([^/]+)/([^/]+)/add$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_add_plan_momento,E=_ROUTING_id_plan:%1,E=_ROUTING_id_momento:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:addPlanMomentoAction]
+
+    # admin_delete_plan_momento
+    RewriteCond %{REQUEST_URI} ^/admin/plan/plan\-momento/([^/]+)/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_delete_plan_momento,E=_ROUTING_id_plan_momento:%1,E=_ROUTING_id_menu:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\PlanCRUDController\:\:deletePlanMomentoAction]
+
+    # sitio_page
+    RewriteCond %{REQUEST_URI} ^/sitio/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:sitio_page,E=_ROUTING_page:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlanBundle\\Controller\\SitioController\:\:indexAction]
+
+    # buscador
+    RewriteCond %{REQUEST_URI} ^/buscar$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:buscador,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\BuscadorController\:\:buscadorAction]
+
+    # admin_ingrediente_categoria
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:indexAction]
+
+    # admin_ingrediente_categoria_filter
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:filterAction]
+
+    # admin_ingrediente_categoria_show
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:showAction]
+
+    # admin_ingrediente_categoria_new
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_new,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:newAction]
+
+    # admin_ingrediente_categoria_edit
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:editAction]
+
+    # admin_ingrediente_categoria_delete
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:deleteAction]
+
+    # admin_ingrediente_categoria_batch
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:batchAction]
+
+    # admin_ingrediente_categoria_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_ingrediente_categoria_sort
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/categoria/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_categoria_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\CatIngredienteCRUDController\:\:sortAction]
+
+    # plato_show
+    RewriteCond %{REQUEST_URI} ^/menu/([^/]+)/plato/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:plato_show,E=_ROUTING_menu_slug:%1,E=_ROUTING_plato_slug:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\DefaultController\:\:showAction]
+
+    # plato_show_simple
+    RewriteCond %{REQUEST_URI} ^/plato/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:plato_show_simple,E=_ROUTING_slug:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\DefaultController\:\:showSimpleAction]
+
+    # rss_plato
+    RewriteCond %{REQUEST_URI} ^/platos\.rss$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:rss_plato,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\DefaultController\:\:rssAction]
+
+    # admin_ingrediente
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:indexAction]
+
+    # admin_ingrediente_filter
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:filterAction]
+
+    # admin_ingrediente_show
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:showAction]
+
+    # admin_ingrediente_new
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_new,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:newAction]
+
+    # admin_ingrediente_edit
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:editAction]
+
+    # admin_ingrediente_delete
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:deleteAction]
+
+    # admin_ingrediente_batch
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:batchAction]
+
+    # admin_ingrediente_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_ingrediente_sort
+    RewriteCond %{REQUEST_URI} ^/admin/ingrediente/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_ingrediente_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\IngredienteCRUDController\:\:sortAction]
+
+    # admin_plato
+    RewriteCond %{REQUEST_URI} ^/admin/plato$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:indexAction]
+
+    # admin_plato_filter
+    RewriteCond %{REQUEST_URI} ^/admin/plato/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/plato/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_filter,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:filterAction]
+
+    # admin_plato_show
+    RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:showAction]
+
+    # admin_plato_new
+    RewriteCond %{REQUEST_URI} ^/admin/plato/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_new,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:newAction]
+
+    # admin_plato_edit
+    RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:editAction]
+
+    # admin_plato_delete
+    RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:deleteAction]
+
+    # admin_plato_batch
+    RewriteCond %{REQUEST_URI} ^/admin/plato/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_batch,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:batchAction]
+
+    # admin_plato_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/plato/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_plato_sort
+    RewriteCond %{REQUEST_URI} ^/admin/plato/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_plato_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\PlatoBundle\\Controller\\PlatoCRUDController\:\:sortAction]
+
+    # core_user_default_index
+    RewriteCond %{REQUEST_URI} ^/hello/([^/]+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:core_user_default_index,E=_ROUTING_name:%1,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\DefaultController\:\:indexAction]
+
+    # admin_user
+    RewriteCond %{REQUEST_URI} ^/admin/user$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:indexAction]
+
+    # admin_user_filter
+    RewriteCond %{REQUEST_URI} ^/admin/user/filter$
+    RewriteCond %{REQUEST_METHOD} !^(POST)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_POST:1]
+    RewriteCond %{REQUEST_URI} ^/admin/user/filter$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_filter,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:filterAction]
+
+    # admin_user_show
+    RewriteCond %{REQUEST_URI} ^/admin/user/([^/]+)/show$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_show,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:showAction]
+
+    # admin_user_new
+    RewriteCond %{REQUEST_URI} ^/admin/user/new$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_new,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:newAction]
+
+    # admin_user_edit
+    RewriteCond %{REQUEST_URI} ^/admin/user/([^/]+)/edit$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_edit,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:editAction]
+
+    # admin_user_delete
+    RewriteCond %{REQUEST_URI} ^/admin/user/([^/]+)/delete$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_delete,E=_ROUTING_id:%1,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:deleteAction]
+
+    # admin_user_batch
+    RewriteCond %{REQUEST_URI} ^/admin/user/batch$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_batch,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:batchAction]
+
+    # admin_user_changemaxperpage
+    RewriteCond %{REQUEST_URI} ^/admin/user/changemaxperpage$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_changemaxperpage,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:changeMaxPerPageAction]
+
+    # admin_user_sort
+    RewriteCond %{REQUEST_URI} ^/admin/user/([^/]+)/([^/]+)/short$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:admin_user_sort,E=_ROUTING_field:%1,E=_ROUTING_order:%2,E=_ROUTING_DEFAULTS__controller:Core\\UserBundle\\Controller\\UserCRUDController\:\:sortAction]
+
+    # fos_user_security_login
+    RewriteCond %{REQUEST_URI} ^/admin/login$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:fos_user_security_login,E=_ROUTING_DEFAULTS__controller:FOS\\UserBundle\\Controller\\SecurityController\:\:loginAction]
+
+    # fos_user_security_check
+    RewriteCond %{REQUEST_URI} ^/admin/login_check$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:fos_user_security_check]
+
+    # fos_user_security_logout
+    RewriteCond %{REQUEST_URI} ^/admin/logout$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:fos_user_security_logout]
+
+    # _imagine_list_admin
+    RewriteCond %{REQUEST_URI} ^/media/cache/list_admin/(.+)$
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
+    RewriteCond %{REQUEST_URI} ^/media/cache/list_admin/(.+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_list_admin,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:list_admin]
+
+    # _imagine_list_front
+    RewriteCond %{REQUEST_URI} ^/media/cache/list_front/(.+)$
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
+    RewriteCond %{REQUEST_URI} ^/media/cache/list_front/(.+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_list_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:list_front]
+
+    # _imagine_list_miniatura_front
+    RewriteCond %{REQUEST_URI} ^/media/cache/list_miniatura_front/(.+)$
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
+    RewriteCond %{REQUEST_URI} ^/media/cache/list_miniatura_front/(.+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_list_miniatura_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:list_miniatura_front]
+
+    # _imagine_show_menor_front
+    RewriteCond %{REQUEST_URI} ^/media/cache/show_menor_front/(.+)$
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
+    RewriteCond %{REQUEST_URI} ^/media/cache/show_menor_front/(.+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_show_menor_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:show_menor_front]
+
+    # _imagine_show_front
+    RewriteCond %{REQUEST_URI} ^/media/cache/show_front/(.+)$
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
+    RewriteCond %{REQUEST_URI} ^/media/cache/show_front/(.+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_show_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:show_front]
+
+    # _imagine_destacado_front
+    RewriteCond %{REQUEST_URI} ^/media/cache/destacado_front/(.+)$
+    RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$ [NC]
+    RewriteRule .* - [S=1,E=_ROUTING__allow_GET:1,E=_ROUTING__allow_HEAD:1]
+    RewriteCond %{REQUEST_URI} ^/media/cache/destacado_front/(.+)$
+    RewriteRule .* app.php [QSA,L,E=_ROUTING__route:_imagine_destacado_front,E=_ROUTING_path:%1,E=_ROUTING_DEFAULTS__controller:imagine.controller\:filter,E=_ROUTING_DEFAULTS_filter:destacado_front]
+
+    # 405 Method Not Allowed
+    RewriteCond %{_ROUTING__allow_POST} !-z [OR]
+    RewriteCond %{_ROUTING__allow_GET} !-z [OR]
+    RewriteCond %{_ROUTING__allow_HEAD} !-z
+    RewriteRule .* app.php [QSA,L]
 
 
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ index.php [QSA,L]
+    RewriteRule ^(.*)$ app.php [QSA,L]
 </IfModule>

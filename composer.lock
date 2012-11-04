@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/aprezcuba24/CULabsAdminBundle.git",
-                "reference": "f7feb586406921faa8c079931dcb98e2ce1e18f0"
+                "reference": "e56cc81c2798949db1669241537adf3c6f98d957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/aprezcuba24/CULabsAdminBundle/zipball/f7feb586406921faa8c079931dcb98e2ce1e18f0",
-                "reference": "f7feb586406921faa8c079931dcb98e2ce1e18f0",
+                "url": "https://github.com/aprezcuba24/CULabsAdminBundle/zipball/e56cc81c2798949db1669241537adf3c6f98d957",
+                "reference": "e56cc81c2798949db1669241537adf3c6f98d957",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +70,7 @@
                 "lexik/form-filter-bundle": "dev-master",
                 "knplabs/knp-menu-bundle": "2.0.x-dev"
             },
-            "time": "2012-10-23 15:58:56",
+            "time": "2012-11-04 02:41:36",
             "type": "symfony-bundle",
             "installation-source": "dist",
             "autoload": {
@@ -1150,19 +1150,19 @@
             "source": {
                 "type": "git",
                 "url": "http://github.com/KnpLabs/KnpMenuBundle.git",
-                "reference": "6040c533f561da285e38e8bda271d7aaaf62fd10"
+                "reference": "471ad25ea4fcc469f901a85bc5ca530b0bc68624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/KnpLabs/KnpMenuBundle/zipball/6040c533f561da285e38e8bda271d7aaaf62fd10",
-                "reference": "6040c533f561da285e38e8bda271d7aaaf62fd10",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle/zipball/471ad25ea4fcc469f901a85bc5ca530b0bc68624",
+                "reference": "471ad25ea4fcc469f901a85bc5ca530b0bc68624",
                 "shasum": ""
             },
             "require": {
                 "knplabs/knp-menu": "2.0.*",
                 "symfony/framework-bundle": ">=2.0,<2.3-dev"
             },
-            "time": "2012-10-14 12:13:19",
+            "time": "2012-11-01 11:05:07",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1989,18 +1989,18 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/fabpot/Twig.git",
-                "reference": "61393dc9fb8982110048624aa573aec4aee0b465"
+                "reference": "a009821dd31fa783269602507542cea978c9714a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/fabpot/Twig/zipball/61393dc9fb8982110048624aa573aec4aee0b465",
-                "reference": "61393dc9fb8982110048624aa573aec4aee0b465",
+                "url": "https://github.com/fabpot/Twig/zipball/a009821dd31fa783269602507542cea978c9714a",
+                "reference": "a009821dd31fa783269602507542cea978c9714a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-10-20 05:53:18",
+            "time": "2012-11-03 07:27:41",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2047,7 +2047,8 @@
                 "shasum": null
             },
             "type": "library",
-            "installation-source": "dist"
+            "installation-source": "dist",
+            "time": "1351398151"
         },
         {
             "name": "vich/uploader-bundle",
